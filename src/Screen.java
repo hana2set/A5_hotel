@@ -1,7 +1,6 @@
 import constant.OrderLevel;
 import error.WrongInputException;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Screen {

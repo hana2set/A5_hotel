@@ -1,29 +1,34 @@
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class Hotel {
     private List<Room> roomList = new ArrayList<>();
     private BigDecimal asset = new BigDecimal("100000000000");
+    private Map<UUID, Reservation> reservationMap = new HashMap<>();
 
-    public List<Reservation> reservationList = new ArrayList<>();
 
     public List<Room> getRoomList() {
         return roomList;
     }
 
-    public List<Reservation> getReservationList() {
-        return this.reservationList;
+    public Map<UUID, Reservation> getReservationMap() {
+        return this.reservationMap;
     }
 
     public List<Reservation> getReservationList(List<UUID> uuids) {
         return uuids == null
                 ? Collections.emptyList()
-                : this.reservationList.stream()
-                    .filter(rsv -> uuids.contains(rsv.getUuid()))
+                : uuids.stream()
+                    .map(id -> reservationMap.get(id))
+                    .sorted(Comparator.comparing(Reservation::getDate))
                     .toList();
+    }
+
+    public UUID addReservation(User user, Room room, LocalDateTime date) {
+        UUID id = UUID.randomUUID();
+        reservationMap.put(id, new Reservation(id, user, room, date));
+        return id;
     }
 
 }

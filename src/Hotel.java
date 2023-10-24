@@ -3,10 +3,9 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class Hotel {
-    private List<Room> roomList = new ArrayList<>();
+    private static List<Room> roomList = new ArrayList<>();
     private BigDecimal asset = new BigDecimal("100000000000");
     private Map<UUID, Reservation> reservationMap = new HashMap<>();
-
 
     public List<Room> getRoomList() {
         return roomList;
@@ -27,7 +26,7 @@ public class Hotel {
 
     public UUID addReservation(User user, Room room, LocalDateTime date) {
         UUID id = UUID.randomUUID();
-        reservationMap.put(id, new Reservation(id, user, room, date));
+        reservationMap.put(id, new Reservation(user, room, date));
         return id;
     }
 

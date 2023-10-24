@@ -1,10 +1,12 @@
+import constant.RoomSize;
+
 public class Room {
     private int floor;
     private int unit;
-    private int size;
+    private RoomSize size;
     private int price;
 
-    public Room(int floor, int unit, int size, int price) {
+    public Room(int floor, int unit, RoomSize size, int price) {
         this.floor = floor;
         this.unit = unit;
         this.size = size;
@@ -19,7 +21,7 @@ public class Room {
         return unit;
     }
 
-    public int getSize() {
+    public RoomSize getSize() {
         return size;
     }
 

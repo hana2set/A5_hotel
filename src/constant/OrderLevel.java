@@ -2,7 +2,7 @@ package constant;
 
 public enum OrderLevel {
     MAIN,           // 메인화면
-    CHECKROOM,
+    SELECT_ROOM,
     RESERVATIION,
     CANCEL;
 }

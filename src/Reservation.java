@@ -1,25 +1,16 @@
+import error.WrongInputException;
+
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class Reservation {
-    private UUID uuid;
     private User user;
     private Room room;
     private LocalDateTime date;
 
-    public Reservation(UUID uuid, User user, Room room, LocalDateTime date) {
-        this.uuid = uuid;
+    public Reservation(User user, Room room, LocalDateTime date) {
         this.user = user;
         this.room = room;
         this.date = date;
-    }
-
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
     }
 
     public User getUser() {
@@ -44,6 +35,26 @@ public class Reservation {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public boolean isReservationPossible() throws WrongInputException {
+
+        if (1==1) {
+
+        } else {
+            throw new WrongInputException("예약이 불가능합니다.");
+        }
+        return true;
+    }
+
+    private boolean isDateValid() throws WrongInputException {
+
+        if (1==1) {
+
+        } else {
+            throw new WrongInputException("올바른 데이터 타입이 아닙니다.");
+        }
+        return true;
     }
 
 }

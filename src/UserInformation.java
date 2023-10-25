@@ -31,6 +31,7 @@ public class UserInformation {
             }
         }
     }
+
     public static void Client() {
         Scanner sc = new Scanner(System.in);
         boolean start = true;
@@ -61,6 +62,7 @@ public class UserInformation {
             }
         }
     }
+
     public static void Adimin() {
         Scanner sc = new Scanner(System.in);
         boolean start = true;
@@ -102,6 +104,8 @@ public class UserInformation {
         return new User(name, phone, money);
     }
 
+
+    //TODO 형식을 print로 보여주던지, 폰번호를 파싱하던지 해야함 ( 01012342345 -> 에러 )
     public static String phoneNumber(){
         Scanner sc = new Scanner(System.in);
         String rule = "^\\d{3}-\\d{3,4}-\\d{4}$";
@@ -123,7 +127,7 @@ public class UserInformation {
     public static void reservate() {
         Scanner sc = new Scanner(System.in);
         boolean overlap = false; // overlap(중복)
-        for (Reservation reservation : hotel.getreservationlist()) {
+        for (Reservation reservation : hotel.getReservationList(user)) {
             if (reservation.getUser().equals(user)) {
                 overlap = true; // Set overlap to true if a duplicate is found
             }
@@ -152,9 +156,9 @@ public class UserInformation {
     //Admin
     public static void reservationlist() {
         System.out.println("예약 리스트");
-        hotel.getreservationlist().forEach((Reservation r) -> {
-            System.out.println("예약 번호 : " + hotel.getreservationlist().indexOf(r)+1);
-            System.out.println("객실 : " + r.getUuid());
+        hotel.getReservationList(user).forEach((Reservation r) -> {
+            System.out.println("예약 번호 : " + hotel.getReservationList().indexOf(r)+1);
+            System.out.println("객실 : " + r.getHotelRoom());
             System.out.println("고객 이름 : " + r.getUser().getName());
             System.out.println("고객 전화번호 : " + r.getUser().getPhoneNumber());
             System.out.println("예약 날짜 : " + r.getDate());

@@ -1,9 +1,12 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Hotel {
     private List<HotelRoom> rooms; // 객실 리스트
     private int hotelAsset; // 호텔 보유 자산(?) 이게 필요한가?
+    private Map<UUID, Reservation> reservationMap = new HashMap<>();
+    private Map<User, List<UUID>> uuidMap = new HashMap<>();
     private List<Reservation> reservationRoom; // 예약된 객실리스트
 
     public Hotel() {
@@ -22,14 +25,36 @@ public class Hotel {
     public List<HotelRoom> getAvailableRoom() {
         List<HotelRoom> availableRoom = new ArrayList<>(); // 예약 가능한 객실 리스트
         for (HotelRoom hotelRoom : rooms) {
-            if(!hotelRoom.isBooked()) {
-                availableRoom.add(hotelRoom);
-            }
+
+            //TODO check availableRoom Login
+            availableRoom.add(hotelRoom);
         }
         return availableRoom;
     }
 
-    public List<Reservation> getreservationlist() {
-        return this.getreservationlist();
+    public Map<UUID, Reservation> getReservationMap() {
+        return this.reservationMap;
+    }
+
+    public List<Reservation> getReservationList(User user) {
+        List<UUID> uuids = uuidMap.get(user);
+        return uuids == null
+                ? Collections.emptyList()
+                : uuids.stream()
+                .map(id -> reservationMap.get(id))
+                .sorted(Comparator.comparing(Reservation::getDate))
+                .collect(Collectors.toList());
+    }
+
+
+    public List<Reservation> getReservationList() {
+        //TODO master select list
+        return Collections.emptyList();
+    }
+
+    public UUID addReservation(User user, HotelRoom room, LocalDateTime date) {
+        UUID id = UUID.randomUUID();
+        reservationMap.put(id, new Reservation(room, user, date));
+        return id;
     }
 }

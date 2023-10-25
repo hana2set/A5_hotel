@@ -45,20 +45,48 @@ public class Hotel {
         return uuids == null
                 ? Collections.emptyList()
                 : uuids.stream()
-                .map(id -> reservationMap.get(id))
-                .sorted(Comparator.comparing(Reservation::getDate))
+                .map(reservationMap::get)
+                .sorted(Comparator.comparing(Reservation::getDate, Comparator.nullsLast(Comparator.reverseOrder())))
                 .collect(Collectors.toList());
     }
 
 
     public List<Reservation> getReservationList() {
-        //TODO master select list
-        return Collections.emptyList();
+        return reservationMap.values().stream()
+                .sorted(Comparator.comparing(Reservation::getDate, Comparator.nullsLast(Comparator.reverseOrder())))
+                .collect(Collectors.toList());
     }
 
-    public UUID addReservation(User user, HotelRoom room, LocalDateTime date) {
+    public UUID addReservation(User user, HotelRoom room, LocalDateTime date) throws Exception {
         UUID id = UUID.randomUUID();
+
+        // 중복날짜, room 있는지 확인
+        reservationMap.values().stream()
+                .filter((rsv) -> room == rsv.getHotelRoom() && rsv.getDate().equals(date))
+                .findFirst()
+                .orElseThrow(() -> new Exception("이미 예약된 날짜가 존재합니다."));
+
         reservationMap.put(id, new Reservation(room, user, date));
+        if (uuidMap.get(user) == null) {
+            uuidMap.put(user, new ArrayList<>());
+        }
+        uuidMap.get(user).add(id);
+
+
         return id;
+    }
+
+    public void cancelReservation(User user) {
+        if (uuidMap.get(user) != null) {
+            uuidMap.get(user).stream().forEach(reservationMap::remove);
+        }
+        uuidMap.remove(user);
+    }
+
+    public void cancelReservation(User user, UUID uuid) {
+        reservationMap.remove(uuid);
+        if (uuidMap.get(user) != null) {
+            uuidMap.get(user).remove(uuid);
+        }
     }
 }

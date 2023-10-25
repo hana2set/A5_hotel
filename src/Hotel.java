@@ -18,7 +18,7 @@ public class Hotel {
         hotelAsset += room.getPrice(); // 호텔 자산에 객실 가격이 추가됨(필수 사항 아님)
     }
 
-    // 예약 객실 리스트를 반환하는 메서드
+    // 예약 가능한 객실리스트를 반환하는 메서드
     public List<HotelRoom> getAvailableRoom() {
         List<HotelRoom> availableRoom = new ArrayList<>(); // 예약 가능한 객실 리스트
         for (HotelRoom hotelRoom : rooms) {

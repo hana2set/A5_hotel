@@ -89,4 +89,17 @@ public class Hotel {
             uuidMap.get(user).remove(uuid);
         }
     }
+
+    public void cancelReservation(UUID p_uuid) {
+        reservationMap.remove(p_uuid);
+        for (User user : uuidMap.keySet()) {
+            if (uuidMap.get(user).stream()
+                    .filter(uuid -> uuid == p_uuid)
+                    .findFirst()
+                    .isPresent() == true) {
+                uuidMap.get(user).remove(p_uuid);
+                return;
+            }
+        }
+    }
 }

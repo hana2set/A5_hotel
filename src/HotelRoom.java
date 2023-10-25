@@ -1,5 +1,3 @@
-import java.util.UUID;
-
 public class HotelRoom {
     private String roomSize; // 객실 사이즈
     private int price; // 객실 비용

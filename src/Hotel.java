@@ -29,5 +29,7 @@ public class Hotel {
         return availableRoom;
     }
 
-    // 예약 받은 객실을 리스트에 추가하는 메서드 필요 (고객 정보 필요)
+    public List<Reservation> getreservationlist() {
+        return this.getreservationlist();
+    }
 }

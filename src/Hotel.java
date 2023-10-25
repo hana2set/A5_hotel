@@ -15,6 +15,10 @@ public class Hotel {
         reservationRoom = new ArrayList<>();
     }
 
+    public List<HotelRoom> getRooms() {
+        return rooms;
+    }
+
     // 객실리스트에 객실을 추가하는 메서드
     public void addRoom(HotelRoom room) {
         rooms.add(room);

@@ -1,8 +1,10 @@
 public class HotelRoom {
-    private String roomSize; // 객실 사이즈
-    private int price; // 객실 비용
+    private int unit;           // 호실
+    private String roomSize;    // 객실 사이즈
+    private int price;          // 객실 비용
 
-    public HotelRoom(String roomSize, int price) {
+    public HotelRoom(int unit, String roomSize, int price) {
+        this.unit = unit;
         this.roomSize = roomSize;
         this.price = price;
     }

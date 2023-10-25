@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class UserInformation {
-    public static Hotel hotel = new Hotel(); //
+    public static Hotel hotel = new Hotel();
     public static User user;
 
     public static void Display() {

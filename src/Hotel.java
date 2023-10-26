@@ -40,6 +40,7 @@ public class Hotel {
         return this.reservationMap;
     }
 
+    // 2개 있는 같은 메서드?
     public List<Reservation> getReservationList(User user) {
         List<UUID> uuids = uuidMap.get(user);
         return uuids == null
@@ -49,7 +50,6 @@ public class Hotel {
                 .sorted(Comparator.comparing(Reservation::getDate))
                 .collect(Collectors.toList());
     }
-
 
     public List<Reservation> getReservationList() {
         //TODO master select list

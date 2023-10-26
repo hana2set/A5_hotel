@@ -5,7 +5,6 @@ public class Main {
         Initializer init = new Initializer();
         init.initRoom();
 
-        UserInformation userInformation = new UserInformation();
-        userInformation.Display();
+        UserInformation.Display();
     }
 }

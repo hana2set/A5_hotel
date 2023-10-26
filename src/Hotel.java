@@ -68,6 +68,11 @@ public class Hotel {
 //    }
 
     public void getReservationList(UUID uuid) {
+        System.out.println("예약번호를 입력하세요: ");
+
+        Scanner sc = new Scanner(System.in);
+        String tempBookingId = sc.next();
+
         Reservation reservation = reservationMap.get(uuid);
         if (reservation == null) {
             System.out.println("잘못된 예약 번호입니다. :" + uuid);
@@ -81,6 +86,8 @@ public class Hotel {
             System.out.println("예약일자 : " + reservation.getDate());
             System.out.println("예약번호 : " + uuid);
         }
+
+        sc.close();
     }
 
     public void getReservationList() {

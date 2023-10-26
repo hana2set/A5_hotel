@@ -73,10 +73,11 @@ public class Hotel {
         UUID id = UUID.randomUUID();
 
         // 중복날짜, room 있는지 확인
-        reservationMap.values().stream()
+        if (reservationMap.values().stream()
                 .filter((rsv) -> room == rsv.getHotelRoom() && rsv.getDate().equals(date))
                 .findFirst()
-                .orElseThrow(() -> new Exception("이미 예약된 날짜가 존재합니다."));
+                .isPresent() == true )
+            throw new Exception("이미 예약된 날짜가 존재합니다.");
 
         reservationMap.put(id, new Reservation(room, user, date));
         if (uuidMap.get(user) == null) {

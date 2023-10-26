@@ -46,23 +46,27 @@ public class Hotel {
         System.out.println("예약번호를 입력하세요: ");
 
         Scanner sc = new Scanner(System.in);
-        String uuid = sc.next();
+        String data = sc.next();
+        try {
+            UUID uuid = UUID.fromString(sc.next());
 
-        Reservation reservation = reservationMap.get(uuid);
-        if (reservation == null) {
-            System.out.println("잘못된 예약 번호입니다. :" + uuid);
-        } else {
-            System.out.println("숙박일자 : " + reservation.getReservationDate());
-            System.out.println("예약자명 : " + reservation.getUser().getName());
-            System.out.println("전화번호 : " + reservation.getUser().getPhoneNumber());
-            System.out.println("방　번호 : " + reservation.getHotelRoom().getUnit());
-            System.out.println("방　크기 : " + reservation.getHotelRoom().getRoomSize());
-            System.out.println("가　　격 : " + reservation.getHotelRoom().getPrice() + " 원");
-            System.out.println("예약일자 : " + reservation.getDate());
-            System.out.println("예약번호 : " + uuid);
+            Reservation reservation = reservationMap.get(uuid);
+            if (reservation == null) {
+                System.out.println("잘못된 예약 번호입니다. :" + data);
+            } else {
+                System.out.println("숙박일자 : " + reservation.getReservationDate());
+                System.out.println("예약자명 : " + reservation.getUser().getName());
+                System.out.println("전화번호 : " + reservation.getUser().getPhoneNumber());
+                System.out.println("방　번호 : " + reservation.getHotelRoom().getUnit());
+                System.out.println("방　크기 : " + reservation.getHotelRoom().getRoomSize());
+                System.out.println("가　　격 : " + reservation.getHotelRoom().getPrice() + " 원");
+                System.out.println("예약일자 : " + reservation.getDate());
+                System.out.println("예약번호 : " + data);
+            }
+
+        } catch (Exception e) {
+            System.out.println("잘못된 예약 번호입니다. :" + data);
         }
-
-        sc.close();
     }
 
     // uuid로 예약 조회하기
@@ -110,13 +114,15 @@ public class Hotel {
         System.out.println("예약번호를 입력하세요: ");
 
         Scanner sc = new Scanner(System.in);
-        String uuid = sc.next();
+        String data = sc.next();
+        try {
+            UUID uuid = UUID.fromString(sc.next());
 
-        Reservation reservation = reservationMap.get(uuid);
-        if (reservation == null) {
-            System.out.println("잘못된 예약 번호입니다. :" + uuid);
-        } else {
-            reservationMap.remove(uuid);
+            Reservation reservation = reservationMap.get(uuid);
+            if (reservation == null) {
+                System.out.println("잘못된 예약 번호입니다. :" + data);
+            } else {
+                reservationMap.remove(uuid);
 //            for (User user : uuidMap.keySet()) {
 //                if (uuidMap.get(user).stream()
 //                        .filter(i -> i == UUID.fromString(uuid))
@@ -126,9 +132,11 @@ public class Hotel {
 //                    return;
 //                }
 //            }
+            }
+        } catch (Exception e) {
+            System.out.println("잘못된 예약 번호입니다. :" + data);
         }
 
-        sc.close();
     }
 
     public void printHotelMoney(){

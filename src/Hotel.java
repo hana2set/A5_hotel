@@ -25,16 +25,28 @@ public class Hotel {
         hotelAsset += room.getPrice(); // 호텔 자산에 객실 가격이 추가됨(필수 사항 아님)
     }
 
-    // 예약 가능한 객실리스트를 반환하는 메서드
-    public List<HotelRoom> getAvailableRoom() {
-        List<HotelRoom> availableRoom = new ArrayList<>(); // 예약 가능한 객실 리스트
-        for (HotelRoom hotelRoom : rooms) {
+    // 예약 가능한 객실 리스트를 반환하는 메서드
+    public List<HotelRoom> getAvailableRoom(LocalDateTime desiredDate) {
+        List<HotelRoom> availableRoom = new ArrayList<>();
 
-            //TODO check availableRoom Login
-            availableRoom.add(hotelRoom);
+        for (HotelRoom hotelRoom : rooms) {
+            boolean isRoomAvailable = true;
+
+            for (Reservation reservation : reservationMap.values()) {
+                if (reservation.getHotelRoom() == hotelRoom && reservation.getDate().toLocalDate().isEqual(desiredDate.toLocalDate())) {
+                    isRoomAvailable = false;
+                    break; // 예약 불가능
+                }
+            }
+
+            if (isRoomAvailable) {
+                availableRoom.add(hotelRoom);
+            }
         }
+
         return availableRoom;
     }
+
 
     public Map<UUID, Reservation> getReservationMap() {
         return this.reservationMap;

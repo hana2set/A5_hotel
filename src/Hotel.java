@@ -67,11 +67,12 @@ public class Hotel {
 //                .collect(Collectors.toList());
 //    }
 
-    public void getReservationList(UUID uuid) {
+
+    public void getReservationByUser() {
         System.out.println("예약번호를 입력하세요: ");
 
         Scanner sc = new Scanner(System.in);
-        String tempBookingId = sc.next();
+        String uuid = sc.next();
 
         Reservation reservation = reservationMap.get(uuid);
         if (reservation == null) {
@@ -88,6 +89,21 @@ public class Hotel {
         }
 
         sc.close();
+    }
+    public void getReservationList(UUID uuid) {
+        Reservation reservation = reservationMap.get(uuid);
+        if (reservation == null) {
+            System.out.println("잘못된 예약 번호입니다. :" + uuid);
+        } else {
+            System.out.println("숙박일자 : " + reservation.getReservationDate());
+            System.out.println("예약자명 : " + reservation.getUser().getName());
+            System.out.println("전화번호 : " + reservation.getUser().getPhoneNumber());
+            System.out.println("방　번호 : " + reservation.getHotelRoom().getUnit());
+            System.out.println("방　크기 : " + reservation.getHotelRoom().getRoomSize());
+            System.out.println("가　　격 : " + reservation.getHotelRoom().getPrice() + " 원");
+            System.out.println("예약일자 : " + reservation.getDate());
+            System.out.println("예약번호 : " + uuid);
+        }
     }
 
     public void getReservationList() {

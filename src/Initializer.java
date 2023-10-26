@@ -26,19 +26,19 @@ public class Initializer {
         User user3 = new User("가가가", "111-1111-1111", 400000);
 
         try {
-            UserInformation.hotel.addReservation(user1, room1, LocalDateTime.now());
-            UserInformation.hotel.addReservation(user1, room2, LocalDate.of(2023,11,20).atStartOfDay());
-            UserInformation.hotel.addReservation(user1, room3, LocalDate.of(2023,11,21).atStartOfDay());
-            UserInformation.hotel.addReservation(user1, room3, LocalDate.of(2023,11,22).atStartOfDay());
-            UserInformation.hotel.addReservation(user2, room1, LocalDate.of(2023,11,19).atStartOfDay());
-            UserInformation.hotel.addReservation(user2, room2, LocalDate.of(2023,11,21).atStartOfDay());
-            UserInformation.hotel.addReservation(user2, room3, LocalDate.of(2023,11,19).atStartOfDay());
-            UserInformation.hotel.addReservation(user2, room6, LocalDate.of(2023,11,10).atStartOfDay());
-            UserInformation.hotel.addReservation(user2, room6, LocalDate.of(2023,11,11).atStartOfDay());
-            UserInformation.hotel.addReservation(user2, room6, LocalDate.of(2023,11,12).atStartOfDay());
-            UserInformation.hotel.addReservation(user3, room1, LocalDate.of(2023,11,1).atStartOfDay());
-            UserInformation.hotel.addReservation(user3, room1, LocalDate.of(2023,12,1).atStartOfDay());
-            UserInformation.hotel.addReservation(user3, room1, LocalDate.of(2023,12,2).atStartOfDay());
+            UserInformation.hotel.addReservation(user1, room1, "2023-11-01");
+            UserInformation.hotel.addReservation(user1, room2, "2023-11-01");
+            UserInformation.hotel.addReservation(user1, room3, "2023-11-01");
+            UserInformation.hotel.addReservation(user1, room3, "2023-11-02");
+            UserInformation.hotel.addReservation(user2, room1, "2023-11-02");
+            UserInformation.hotel.addReservation(user2, room2, "2023-11-02");
+            UserInformation.hotel.addReservation(user2, room3, "2023-11-02");
+            UserInformation.hotel.addReservation(user2, room6, "2023-11-02");
+            UserInformation.hotel.addReservation(user2, room6, "2023-11-03");
+            UserInformation.hotel.addReservation(user2, room6, "2023-11-04");
+            UserInformation.hotel.addReservation(user3, room1, "2023-11-06");
+            UserInformation.hotel.addReservation(user3, room1, "2023-11-07");
+            UserInformation.hotel.addReservation(user3, room1, "2023-11-08");
         } catch (Exception e) {
             System.out.println("초기화 부분 에러");
         }

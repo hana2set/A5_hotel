@@ -50,22 +50,28 @@ public class UserInformation {
 
             switch (choiceNumber) {
                 case 1: // 호텔 예약
-                    System.out.println("예약하길 원하시는 날짜를 입력하세요 (yyyy-MM-dd'T'HH:mm:ss).");
-                    String date = sc.nextLine();
-                    System.out.println("예약하길 원하시는 방을 입력하세요.");
-                    int unit = sc.nextInt();
-                    System.out.println(unit + "호에 예약하시겠습니까?");
-                    System.out.println("1. 확인 /t/t 2. 취소");
-                    int checkChoice = sc.nextInt();
-                    if(checkChoice == 1) {
-                        reservate(); // 호텔 예약 메소드
-                    } else {
-                        System.out.println("처음으로 돌아갑니다");
-                    }
+
+                    // TODO str 날짜, 방 입력받고
+                    // 중복인지 확인.
+                    // hotel.addReservation(user, 방, 날짜 );
+
+//                    try {
+//                        // ISO 8601 :  ISO 8601은 날짜와 시간을 표현하기 위한 국제 표준 형식 중 하나로,
+//                        // "yyyy-MM-dd'T'HH:mm:ss"와 같은 형식을 따릅니다.
+//                        LocalDateTime.parse(reservationDate + "T00:00:00", DateTimeFormatter.ISO_DATE_TIME);
+//                        // 주어진 문자열을 날짜형태로 파싱한다
+//                    } catch (DateTimeParseException e) {
+//                        throw new Exception(e.getMessage());
+//                    }
+
                     break;
                 case 2: // 예약 조회
+                    // TODO hotel.getReservationByUser();
+
                     break;
                 case 3: // 예약 취소
+                    // TODO hotel.cancelReservationByUser();
+
                     break;
                 case 4:
                     start = false;
@@ -87,11 +93,13 @@ public class UserInformation {
 
             switch (selectNumber) {
                 case 1:
-                    System.out.println("현재 모든 방의 예약상태입니다.");
-                    // getReservationList();전체 목록을 List로 출력
-                    System.out.println("1. 돌아가기");
-                    int returnChoice = sc.nextInt();
-                    break;
+//                    System.out.println("현재 모든 방의 예약상태입니다.");
+//                    // getReservationList();전체 목록을 List로 출력
+//                    System.out.println("1. 돌아가기");
+//                    int returnChoice = sc.nextInt();
+//                    break;
+                    // TODO hotel.getReservationList()
+
                 case 2:
                     start = false;
                     break;
@@ -107,7 +115,7 @@ public class UserInformation {
         System.out.println("이름을 입력해주세요");
         String name = sc.nextLine();
 
-        System.out.println("전화번호를 입력해주세요.(010-XXXX-XXXX, -를 입력해주세요.");
+        System.out.println("전화번호를 입력해주세요.(010-XXXX-XXXX), -를 입력해주세요.");
         String phone = phoneNumber();
 
         System.out.println("소지금을 입력해주세요");
@@ -133,49 +141,5 @@ public class UserInformation {
             }
         }
         return phoneNumber;
-    }
-
-    // 등록된 고객 정보로 호텔 예약
-    public static void reservate() {
-        Scanner sc = new Scanner(System.in);
-        boolean overlap = false; // overlap(중복)
-        for (Reservation reservation : hotel.getReservationList(user)) {
-            if (reservation.getUser().equals(user)) {
-                overlap = true; // Set overlap to true if a duplicate is found
-            }
-        }
-        // 이미 방이 예약되어있다.
-        if (overlap) {
-            System.out.println("이미 예약 정보가 존재합니다.");
-            System.out.println("예약을 취소합니다.");
-            System.out.println("2초 후 고객 메뉴로 돌아갑니다.....");
-
-            try {
-                for (int i =2; i > 0 ; i++) {
-                    System.out.println(i + " ");
-                    Thread.sleep(1000);
-                }
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        // 방이 비어있다.
-        } else {
-            System.out.println("예약 하시겠습니까?");
-        }
-
-
-
-
-    }
-    //Admin
-    public static void reservationlist() {
-        System.out.println("예약 리스트");
-        hotel.getReservationList(user).forEach((Reservation r) -> {
-            System.out.println("예약 번호 : " + hotel.getReservationList().indexOf(r)+1);
-            System.out.println("객실 : " + r.getHotelRoom());
-            System.out.println("고객 이름 : " + r.getUser().getName());
-            System.out.println("고객 전화번호 : " + r.getUser().getPhoneNumber());
-            System.out.println("예약 날짜 : " + r.getDate());
-        });
     }
 }

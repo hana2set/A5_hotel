@@ -33,7 +33,7 @@ public class UserInformation {
         }
     }
 
-    public static void clientMenu() {
+    public static void clientMenu() throws Exception {
         Scanner sc = new Scanner(System.in);
         boolean start = true;
         user = saveCustomer();
@@ -49,22 +49,38 @@ public class UserInformation {
             int choiceNumber = sc.nextInt();
 
             switch (choiceNumber) {
-                case 1: // 호텔 예약
+                 case 1: // 호텔 예약
+                    System.out.println("숙박하실 날짜를 입력해주세요 yyyy-MM-dd");
 
-                    // TODO str 날짜, 방 입력받고
-                    // 중복인지 확인.
-                    // hotel.addReservation(user, 방, 날짜 );
+                    String date = sc.nextLine();
+                    LocalDateTime reservationDate;
+                    try {
+                        reservationDate = LocalDateTime.parse(date + "T00:00:00", DateTimeFormatter.ISO_DATE_TIME);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("유효하지 않은 날짜 형식입니다.");
+                        break;
+                    }
 
-//                    try {
-//                        // ISO 8601 :  ISO 8601은 날짜와 시간을 표현하기 위한 국제 표준 형식 중 하나로,
-//                        // "yyyy-MM-dd'T'HH:mm:ss"와 같은 형식을 따릅니다.
-//                        LocalDateTime.parse(reservationDate + "T00:00:00", DateTimeFormatter.ISO_DATE_TIME);
-//                        // 주어진 문자열을 날짜형태로 파싱한다
-//                    } catch (DateTimeParseException e) {
-//                        throw new Exception(e.getMessage());
-//                    }
+                    System.out.println("숙박하실 방을 입력해주세요");
+                    int roomNumber = sc.nextInt();
 
+                    boolean isRoomAvailable = true;
+
+                    for (Reservation reservation : hotel.getReservationList()) {
+                        if (reservation.getHotelRoom().getUnit() == roomNumber && reservation.getDate().toLocalDate().isEqual(reservationDate.toLocalDate())) {
+                            isRoomAvailable = false;
+                            System.out.println("이미 예약된 방입니다.");
+                            break;
+                        }
+                    }
+
+                    if (isRoomAvailable == true) {
+                        hotel.addReservation(user, UserInformation.hotel.getRooms().get(roomNumber - 1), reservationDate.toString());
+                        System.out.println("예약이 완료되었습니다.");
+                    }
                     break;
+
+
                 case 2: // 예약 조회
                     // TODO hotel.getReservationByUser();
 

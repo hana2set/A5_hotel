@@ -1,6 +1,3 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class UserInformation {
@@ -93,12 +90,9 @@ public class UserInformation {
 
             switch (selectNumber) {
                 case 1:
-//                    System.out.println("현재 모든 방의 예약상태입니다.");
-//                    // getReservationList();전체 목록을 List로 출력
-//                    System.out.println("1. 돌아가기");
-//                    int returnChoice = sc.nextInt();
-//                    break;
                     // TODO hotel.getReservationList()
+                    hotel.getReservationList();
+                    break;
 
                 case 2:
                     start = false;

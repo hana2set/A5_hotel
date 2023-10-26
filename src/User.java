@@ -31,7 +31,7 @@ public class User {
     // 정규식에 맞는 유효한 전화번호인지 확인하는 메서드
     public boolean isValidPhoneNumber(String phoneNumber) {
         // XXX-XXXX-XXXX 형식의 정규 표현식
-        String regex = "\\d{3}-\\d{4}-\\d{4}";
+        String regex = "\\d{3}-\\d{3,4}-\\d{4}";
         // \d : 숫자를 나타내는 메타 문자로, 0부터 9까지의 숫자 하나를 나타냅니다.
 
         Pattern pattern = Pattern.compile(regex);

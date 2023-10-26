@@ -3,7 +3,6 @@ public class Main {
         Initializer init = new Initializer();
         init.run();
 
-        UserInformation userInformation = new UserInformation();
-        userInformation.Display();
+        UserInformation.Display();
     }
 }

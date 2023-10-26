@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class UserInformation {
@@ -15,15 +18,13 @@ public class UserInformation {
             int menuChoice = sc.nextInt();
             switch (menuChoice) {
                 case 1: // 호텔 예약
-                    Client();
+                    clientMenu();
                     break;
                 case 2: // 예약 조회
-                    Adimin();
+                    adiminMenu();
                     break;
                 case 3:
                     start = false;
-                    break;
-                case 4:
                     break;
                 default:
                     System.out.println("다시 입력해 주세요");
@@ -32,12 +33,11 @@ public class UserInformation {
         }
     }
 
-    public static void Client() {
+    public static void clientMenu() {
         Scanner sc = new Scanner(System.in);
         boolean start = true;
+        user = saveCustomer();
 
-        System.out.println("고객 정보를 등록합니다.");
-        user = savecustomer();
         while (start) {
             System.out.println(user.getName() + " 님 방문해 주셔서 감사합니다.");
             System.out.println("원하는 옵션을 입력해 주세요");
@@ -45,16 +45,27 @@ public class UserInformation {
             System.out.println("2.예약 조회");
             System.out.println("3.예약 취소");
             System.out.println("4. 종료");
-            System.out.println("입력 ->");
+            System.out.print("입력 -> ");
             int choiceNumber = sc.nextInt();
 
             switch (choiceNumber) {
-                case 1:
-                    reservate(); // 호텔 예약 메소드
+                case 1: // 호텔 예약
+                    System.out.println("예약하길 원하시는 날짜를 입력하세요 (yyyy-MM-dd'T'HH:mm:ss).");
+                    String date = sc.nextLine();
+                    System.out.println("예약하길 원하시는 방을 입력하세요.");
+                    int unit = sc.nextInt();
+                    System.out.println(unit + "호에 예약하시겠습니까?");
+                    System.out.println("1. 확인 /t/t 2. 취소");
+                    int checkChoice = sc.nextInt();
+                    if(checkChoice == 1) {
+                        reservate(); // 호텔 예약 메소드
+                    } else {
+                        System.out.println("처음으로 돌아갑니다");
+                    }
                     break;
-                case 2:
+                case 2: // 예약 조회
                     break;
-                case 3:
+                case 3: // 예약 취소
                     break;
                 case 4:
                     start = false;
@@ -63,7 +74,7 @@ public class UserInformation {
         }
     }
 
-    public static void Adimin() {
+    public static void adiminMenu() {
         Scanner sc = new Scanner(System.in);
         boolean start = true;
         while(start) {
@@ -76,7 +87,10 @@ public class UserInformation {
 
             switch (selectNumber) {
                 case 1:
-                    reservationlist();
+                    System.out.println("현재 모든 방의 예약상태입니다.");
+                    // getReservationList();전체 목록을 List로 출력
+                    System.out.println("1. 돌아가기");
+                    int returnChoice = sc.nextInt();
                     break;
                 case 2:
                     start = false;
@@ -85,17 +99,15 @@ public class UserInformation {
         }
     }
 
-
-
     // 고객 정보 등록
-    public static User savecustomer () {
+    public static User saveCustomer () {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("고객 정보를 등록합니다.");
         System.out.println("이름을 입력해주세요");
         String name = sc.nextLine();
 
-        System.out.println("전화번호를 입력해주세요:");
+        System.out.println("전화번호를 입력해주세요.(010-XXXX-XXXX, -를 입력해주세요.");
         String phone = phoneNumber();
 
         System.out.println("소지금을 입력해주세요");
@@ -132,6 +144,7 @@ public class UserInformation {
                 overlap = true; // Set overlap to true if a duplicate is found
             }
         }
+        // 이미 방이 예약되어있다.
         if (overlap) {
             System.out.println("이미 예약 정보가 존재합니다.");
             System.out.println("예약을 취소합니다.");
@@ -145,10 +158,11 @@ public class UserInformation {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            return;
+        // 방이 비어있다.
+        } else {
+            System.out.println("예약 하시겠습니까?");
         }
 
-        // 예약 시작
 
 
 
@@ -164,5 +178,4 @@ public class UserInformation {
             System.out.println("예약 날짜 : " + r.getDate());
         });
     }
-
 }

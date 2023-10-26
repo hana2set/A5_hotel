@@ -9,6 +9,10 @@ public class HotelRoom {
         this.price = price;
     }
 
+    public int getUnit() {
+        return unit;
+    }
+
     // 객실 사이즈 반환하는 메서드
     public String getRoomSize() {
         return roomSize;

@@ -15,6 +15,10 @@ public class Hotel {
         reservationRoom = new ArrayList<>();
     }
 
+    public int getHotelAsset() {
+        return hotelAsset;
+    }
+
     public List<HotelRoom> getRooms() {
         return rooms;
     }
@@ -53,20 +57,44 @@ public class Hotel {
     }
 
     // 2개 있는 같은 메서드?
-    public List<Reservation> getReservationList(User user) {
-        List<UUID> uuids = uuidMap.get(user);
-        return uuids == null
-                ? Collections.emptyList()
-                : uuids.stream()
-                .map(reservationMap::get)
-                .sorted(Comparator.comparing(Reservation::getDate, Comparator.nullsLast(Comparator.reverseOrder())))
-                .collect(Collectors.toList());
+//    public List<Reservation> getReservationList(User user) {
+//        List<UUID> uuids = uuidMap.get(user);
+//        return uuids == null
+//                ? Collections.emptyList()
+//                : uuids.stream()
+//                .map(reservationMap::get)
+//                .sorted(Comparator.comparing(Reservation::getDate, Comparator.nullsLast(Comparator.reverseOrder())))
+//                .collect(Collectors.toList());
+//    }
+
+    public void getReservationList(UUID uuid) {
+        Reservation reservation = reservationMap.get(uuid);
+        if (reservation == null) {
+            System.out.println("잘못된 예약 번호입니다. :" + uuid);
+        } else {
+            System.out.println("숙박일자 : " + reservation.getReservationDate());
+            System.out.println("예약자명 : " + reservation.getUser().getName());
+            System.out.println("전화번호 : " + reservation.getUser().getPhoneNumber());
+            System.out.println("방　번호 : " + reservation.getHotelRoom().getUnit());
+            System.out.println("방　크기 : " + reservation.getHotelRoom().getRoomSize());
+            System.out.println("가　　격 : " + reservation.getHotelRoom().getPrice() + " 원");
+            System.out.println("예약일자 : " + reservation.getDate());
+            System.out.println("예약번호 : " + uuid);
+        }
     }
 
-    public List<Reservation> getReservationList() {
-        return reservationMap.values().stream()
-                .sorted(Comparator.comparing(Reservation::getDate, Comparator.nullsLast(Comparator.reverseOrder())))
-                .collect(Collectors.toList());
+    public void getReservationList() {
+//        List<Reservation> reservationList =  reservationMap.values().stream()
+//                .sorted(Comparator.comparing(Reservation::getDate, Comparator.nullsLast(Comparator.reverseOrder())))
+//                .collect(Collectors.toList());
+
+        List<UUID> keyset = new ArrayList<>(reservationMap.keySet());
+        for(UUID uuid: keyset){
+            getReservationList(uuid);
+            System.out.println("===========================================");
+            System.out.println();
+        }
+
     }
 
     public UUID addReservation(User user, HotelRoom room, LocalDateTime date) throws Exception {
@@ -114,5 +142,9 @@ public class Hotel {
                 return;
             }
         }
+    }
+
+    public void printHotelMoney(){
+        System.out.println("호텔 자산 : " + getHotelAsset());
     }
 }

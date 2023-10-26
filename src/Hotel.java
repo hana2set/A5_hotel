@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.*;
 
 public class Hotel {
@@ -20,14 +21,15 @@ public class Hotel {
     }
 
     // 예약 가능한 객실 리스트를 반환하는 메서드
-    public List<HotelRoom> getAvailableRoom(String desiredDate) {
+    public List<HotelRoom> getAvailableRoom(String Date) {
         List<HotelRoom> availableRoom = new ArrayList<>();
+        LocalDate desiredDate = LocalDate.parse(Date);
 
         for (HotelRoom hotelRoom : rooms) {
             boolean isRoomAvailable = true;
 
             for (Reservation reservation : reservationMap.values()) {
-                if (reservation.getHotelRoom() == hotelRoom && reservation.getDate().toLocalDate().isEqual(desiredDate.toLocalDate())) {
+                if (reservation.getHotelRoom() == hotelRoom && reservation.getDate().toLocalDate().isEqual(LocalDate.parse(Date))) {
                     isRoomAvailable = false;
                     break; // 예약 불가능
                 }
@@ -40,6 +42,7 @@ public class Hotel {
 
         return availableRoom;
     }
+
 
     // 고객 예약조회
     public void getReservationByUser() {
@@ -90,7 +93,6 @@ public class Hotel {
             System.out.println("===========================================");
             System.out.println();
         }
-
     }
 
     // 예약 추가

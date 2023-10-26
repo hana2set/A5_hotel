@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -16,9 +17,15 @@ public class UserInformation {
             System.out.println("1. 고객 메뉴 2. 관리자  3. 종료");
 
             int menuChoice = sc.nextInt();
+            System.out.println();
+
             switch (menuChoice) {
                 case 1: // 호텔 예약
-                    clientMenu();
+                    try {
+                        clientMenu();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case 2: // 예약 조회
                     adiminMenu();
@@ -30,7 +37,9 @@ public class UserInformation {
                     System.out.println("다시 입력해 주세요");
                     break;
             }
+
         }
+
     }
 
     public static void clientMenu() throws Exception {
@@ -49,11 +58,12 @@ public class UserInformation {
             int choiceNumber = sc.nextInt();
 
             switch (choiceNumber) {
-                 case 1: // 호텔 예약
+                case 1: // 호텔 예약
                     System.out.println("숙박하실 날짜를 입력해주세요 yyyy-MM-dd");
+                    String date = sc.next();
 
-                    String date = sc.nextLine();
                     LocalDateTime reservationDate;
+
                     try {
                         reservationDate = LocalDateTime.parse(date + "T00:00:00", DateTimeFormatter.ISO_DATE_TIME);
                     } catch (DateTimeParseException e) {
@@ -66,12 +76,13 @@ public class UserInformation {
 
                     boolean isRoomAvailable = true;
 
-                    for (Reservation reservation : hotel.getReservationList()) {
-                        if (reservation.getHotelRoom().getUnit() == roomNumber && reservation.getDate().toLocalDate().isEqual(reservationDate.toLocalDate())) {
+
+                    Reservation reservation = null;
+
+                    if (reservation.getHotelRoom().getUnit() == roomNumber && reservation.getDate().toLocalDate().isEqual(reservationDate.toLocalDate())) {
                             isRoomAvailable = false;
                             System.out.println("이미 예약된 방입니다.");
                             break;
-                        }
                     }
 
                     if (isRoomAvailable == true) {
@@ -79,6 +90,7 @@ public class UserInformation {
                         System.out.println("예약이 완료되었습니다.");
                     }
                     break;
+
 
 
                 case 2: // 예약 조회

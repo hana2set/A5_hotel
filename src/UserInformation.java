@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -18,9 +19,15 @@ public class UserInformation {
             System.out.println("==================================");
 
             int menuChoice = sc.nextInt();
+            System.out.println();
+
             switch (menuChoice) {
                 case 1: // 호텔 예약
-                    clientMenu();
+                    try {
+                        clientMenu();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case 2: // 예약 조회
                     adiminMenu();
@@ -33,10 +40,12 @@ public class UserInformation {
                     System.out.println("다시 입력해 주세요\n");
                     break;
             }
+
         }
+
     }
 
-    public static void clientMenu() {
+    public static void clientMenu() throws Exception {
         Scanner sc = new Scanner(System.in);
         boolean start = true;
         user = saveCustomer();
@@ -69,7 +78,22 @@ public class UserInformation {
                     System.out.println("숙박하실 방을 입력해주세요");
                     int roomNumber = sc.nextInt();
 
+
+                   /* boolean isRoomAvailable = true;
+
+                    Reservation reservation = null;
+
+                    if (reservation.getHotelRoom().getUnit() == roomNumber && reservation.getDate().toLocalDate().isEqual(reservationDate.toLocalDate())) {
+                            System.out.println("이미 예약된 방입니다.");
+                            break;
+                    }
+
+                    if (isRoomAvailable == true) {
+                        hotel.addReservation(user, UserInformation.hotel.getRooms().get(roomNumber - 1), reservationDate.toString());
+                        System.out.println("예약이 완료되었습니다.");
+                    }*/
                     break;
+
                 case 2: // 예약 조회
                     // TODO hotel.getReservationByUser();
 

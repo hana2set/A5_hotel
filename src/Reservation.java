@@ -1,37 +1,30 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+import java.time.OffsetDateTime;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.time.LocalDateTime;
 
 public class Reservation {
-    private HotelRoom hotelRoom;    // 객실
-    private User user;              // 고객
-    private String reservationDate; // 숙박일자
-    private LocalDateTime date;     // 예약일자
+    private UUID id; // 예약번호
+    private User user; // 고객
+    private OffsetDateTime date;
 
-    public Reservation(HotelRoom hotelRoom, User user, String reservationDate) throws Exception {
-        this.hotelRoom = hotelRoom;
+    public Reservation(User user){
+        this.id = UUID.randomUUID();
         this.user = user;
-        this.reservationDate = reservationDate;
-        this.date = LocalDateTime.now();
-    }
+        this.date = date;
 
-    public String getReservationDate() {
-        return reservationDate;
     }
-
-    public HotelRoom getHotelRoom() {
-        return hotelRoom;
+    public UUID getUuid() {
+        return this.id;
     }
 
     public User getUser() {
-        return user;
+        return this.user;
     }
 
-    public LocalDateTime getDate() {
-        return date;
+    public OffsetDateTime getDate() {
+        return this.date;
     }
+
+
+
+
 }

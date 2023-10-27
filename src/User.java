@@ -1,4 +1,5 @@
 public class User {
+
     private String name;
     private String phoneNumber;
     private int money;
@@ -13,17 +14,7 @@ public class User {
         return name;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhoneNumber(){
+        return getPhoneNumber();
     }
-
-
-    public int getMoney() {
-        return money;
-    }
-
-    public void setMoney(int money) {
-        this.money = money;
-    }
-
 }

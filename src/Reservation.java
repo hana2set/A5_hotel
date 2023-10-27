@@ -30,7 +30,6 @@ public class Reservation {
     public User getUser() {
         return user;
     }
-
     public LocalDateTime getDate() {
         return date;
     }

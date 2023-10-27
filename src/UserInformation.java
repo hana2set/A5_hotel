@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class UserInformation {
@@ -8,9 +11,11 @@ public class UserInformation {
         Scanner sc = new Scanner(System.in);
         boolean start = true;
         while(start){
-            System.out.println("환영합니다.");
+
+            System.out.println("=============환영합니다=============");
             System.out.println("저희 A5 호텔에 방문해 주셔서 감사합니다.");
             System.out.println("1. 고객 메뉴 2. 관리자  3. 종료");
+            System.out.println("==================================");
 
             int menuChoice = sc.nextInt();
             switch (menuChoice) {
@@ -20,7 +25,7 @@ public class UserInformation {
                 case 2: // 예약 조회
                     adiminMenu();
                     break;
-                case 3:
+                case 3: // 종료
                     System.out.println("종료합니다.\n");
                     start = false;
                     break;
@@ -37,30 +42,32 @@ public class UserInformation {
         user = saveCustomer();
 
         while (start) {
+            System.out.println("==================================");
             System.out.println(user.getName() + " 님 방문해 주셔서 감사합니다.");
             System.out.println("원하는 옵션을 입력해 주세요");
             System.out.println("1. 호텔 예약");
             System.out.println("2. 예약 조회");
             System.out.println("3. 예약 취소");
             System.out.println("4. 이전화면");
-            System.out.print("입력 -> ");
+            System.out.println("==================================");
             int choiceNumber = sc.nextInt();
 
             switch (choiceNumber) {
                 case 1: // 호텔 예약
+                    System.out.println("숙박하실 날짜를 입력해주세요 yyyy-MM-dd");
+                    String date = sc.next();
 
-                    // TODO str 날짜, 방 입력받고
-                    // 중복인지 확인.
-                    // hotel.addReservation(user, 방, 날짜 );
+                    LocalDateTime reservationDate;
 
-//                    try {
-//                        // ISO 8601 :  ISO 8601은 날짜와 시간을 표현하기 위한 국제 표준 형식 중 하나로,
-//                        // "yyyy-MM-dd'T'HH:mm:ss"와 같은 형식을 따릅니다.
-//                        LocalDateTime.parse(reservationDate + "T00:00:00", DateTimeFormatter.ISO_DATE_TIME);
-//                        // 주어진 문자열을 날짜형태로 파싱한다
-//                    } catch (DateTimeParseException e) {
-//                        throw new Exception(e.getMessage());
-//                    }
+                    try {
+                        reservationDate = LocalDateTime.parse(date + "T00:00:00", DateTimeFormatter.ISO_DATE_TIME);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("유효하지 않은 날짜 형식입니다.");
+                        break;
+                    }
+
+                    System.out.println("숙박하실 방을 입력해주세요");
+                    int roomNumber = sc.nextInt();
 
                     break;
                 case 2: // 예약 조회
@@ -83,13 +90,15 @@ public class UserInformation {
         Scanner sc = new Scanner(System.in);
         boolean start = true;
         while(start) {
+            System.out.println("==================================");
             System.out.println("관리자 모드 입니다.");
             System.out.println("원하는 옵션을 입력해주세요");
             System.out.println("1. 예약 조회");
             System.out.println("2. 호텔 자산 조회");
             System.out.println("3. 이전화면");
-            System.out.println("입력 ->");
+            System.out.println("==================================");
             int selectNumber = sc.nextInt();
+
 
             switch (selectNumber) {
                 case 1: // 예약 조회
@@ -117,18 +126,18 @@ public class UserInformation {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("고객 정보를 등록합니다.");
-        System.out.println("이름을 입력해주세요");
+        System.out.println("이름을 입력해주세요.");
         String name = sc.nextLine();
 
-        System.out.println("전화번호를 입력해주세요.(010-XXXX-XXXX), -를 입력해주세요.");
+        System.out.println("전화번호를 입력해주세요. (- 포함)");
+        System.out.println("예시 : 010-XXXX-XXXX");
         String phone = phoneNumber();
 
-        System.out.println("소지금을 입력해주세요");
+        System.out.println("소지금을 입력해주세요.");
         int money = Integer.parseInt(sc.nextLine());
 
         return new User(name, phone, money);
     }
-
 
     //TODO 형식을 print로 보여주던지, 폰번호를 파싱하던지 해야함 ( 01012342345 -> 에러 )
     public static String phoneNumber(){

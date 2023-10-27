@@ -139,12 +139,4 @@ public class Hotel {
     public void printHotelMoney() {
         System.out.println("호텔 자산 : " + getHotelAsset());
     }
-
-    // 호텔 자산의 증가 & 감소
-    public void addHotelMoney(int hotelMoney){
-        this.hotelAsset += hotelAsset;
-    }
-    public void loseHotelMoney(int hotelMoney) {
-        this.hotelAsset -= hotelAsset;
-    }
 }

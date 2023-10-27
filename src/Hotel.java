@@ -25,13 +25,11 @@ public class Hotel {
     // 예약 가능한 객실 리스트를 반환하는 메서드
     public List<HotelRoom> getAvailableRoom(String Date) {
         List<HotelRoom> availableRoom = new ArrayList<>();
-        LocalDate desiredDate = LocalDate.parse(Date);
-
         for (HotelRoom hotelRoom : rooms) {
             boolean isRoomAvailable = true;
 
             for (Reservation reservation : reservationMap.values()) {
-                if (reservation.getHotelRoom() == hotelRoom && reservation.getDate().toLocalDate().isEqual(LocalDate.parse(Date))) {
+                if (reservation.getHotelRoom() == hotelRoom && reservation.getReservationDate().equals(Date)) {
                     isRoomAvailable = false;
                     break; // 예약 불가능
                 }

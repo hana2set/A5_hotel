@@ -22,8 +22,15 @@ public class User {
         return money;
     }
 
+    public void subtractMoney(int amount) {
+        if (amount > 0 && money >= amount) {
+            money -= amount;
+        } else {
+            System.out.println("소지금이 부족합니다.");
+        }
+    }
+
     public void setMoney(int money) {
         this.money = money;
     }
-
 }

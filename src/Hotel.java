@@ -105,10 +105,10 @@ public class Hotel {
 
         UUID id = UUID.randomUUID();
         reservationMap.put(id, new Reservation(room, user, reservationDate));
-//        if (uuidMap.get(user) == null) {
-//            uuidMap.put(user, new ArrayList<>());
-//        }
-//        uuidMap.get(user).add(id);
+
+        // 자산 추가
+        user.setMoney(user.getMoney() - room.getPrice());
+        hotelAsset += room.getPrice();
 
         return id;
     }
@@ -125,16 +125,10 @@ public class Hotel {
             if (reservation == null) {
                 System.out.println("잘못된 예약 번호입니다. :" + data);
             } else {
+                //자산 반환
+                hotelAsset -= reservationMap.get(uuid).getHotelRoom().getPrice();
                 reservationMap.remove(uuid);
-//            for (User user : uuidMap.keySet()) {
-//                if (uuidMap.get(user).stream()
-//                        .filter(i -> i == UUID.fromString(uuid))
-//                        .findFirst()
-//                        .isPresent() == true) {
-//                    uuidMap.get(user).remove(uuid);
-//                    return;
-//                }
-//            }
+
             }
         } catch (Exception e) {
             System.out.println("잘못된 예약 번호입니다. :" + data);

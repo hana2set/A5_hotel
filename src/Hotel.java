@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Hotel {
     private List<HotelRoom> rooms;      // 객실 리스트
-    private int hotelAsset;             // 호텔 보유 자산(?) 이게 필요한가?
+    private int hotelAsset;             // 호텔 보유 자산
     private Map<UUID, Reservation> reservationMap = new HashMap<>();    // UUID - 예약
 
     private Map<User, List<UUID>> uuidMap = new HashMap<>();            // 고객별 uuids 리스트master
@@ -44,7 +44,6 @@ public class Hotel {
 
         return availableRoom;
     }
-
 
     // 고객 예약조회
     public void getReservationByUser() {
@@ -94,7 +93,7 @@ public class Hotel {
     // 전체 예약 조회 (관리자)
     public void getReservationList() {
         List<UUID> keyset = new ArrayList<>(reservationMap.keySet());
-        for(UUID uuid: keyset){
+        for (UUID uuid : keyset) {
             getReservationList(uuid);
             System.out.println("===========================================");
             System.out.println();
@@ -137,7 +136,7 @@ public class Hotel {
 
     }
 
-    public void printHotelMoney(){
+    public void printHotelMoney() {
         System.out.println("호텔 자산 : " + getHotelAsset());
     }
 }

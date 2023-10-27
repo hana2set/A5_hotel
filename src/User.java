@@ -17,6 +17,8 @@ public class User {
         return phoneNumber;
     }
 
+
+
     public int getMoney() {
         return money;
     }
@@ -27,6 +29,7 @@ public class User {
         } else {
             System.out.println("소지금이 부족합니다.");
         }
+
     }
 
 }

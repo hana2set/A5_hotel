@@ -5,7 +5,7 @@ public class Hotel {
     private List<HotelRoom> rooms;      // 객실 리스트
     private int hotelAsset;             // 호텔 보유 자산(?) 이게 필요한가?
     private Map<UUID, Reservation> reservationMap = new HashMap<>();    // UUID - 예약
-    private Map<User, List<UUID>> uuidMap = new HashMap<>();            // 고객별별 uuids 리스트
+    private Map<User, List<UUID>> uuidMap = new HashMap<>();            // 고객별 uuids 리스트
 
     public Hotel() {
         rooms = new ArrayList<>();

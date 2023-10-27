@@ -74,13 +74,12 @@ public class UserInformation {
                     System.out.println("숙박하실 방을 입력해주세요");
                     int roomNumber = sc.nextInt();
 
-                    boolean isRoomAvailable = true;
 
+                   /* boolean isRoomAvailable = true;
 
                     Reservation reservation = null;
 
                     if (reservation.getHotelRoom().getUnit() == roomNumber && reservation.getDate().toLocalDate().isEqual(reservationDate.toLocalDate())) {
-                            isRoomAvailable = false;
                             System.out.println("이미 예약된 방입니다.");
                             break;
                     }
@@ -88,7 +87,7 @@ public class UserInformation {
                     if (isRoomAvailable == true) {
                         hotel.addReservation(user, UserInformation.hotel.getRooms().get(roomNumber - 1), reservationDate.toString());
                         System.out.println("예약이 완료되었습니다.");
-                    }
+                    }*/
                     break;
 
 

@@ -12,7 +12,7 @@ public class Reservation {
     private String reservationDate; // 숙박일자
     private LocalDateTime date;     // 예약일자
 
-    public Reservation(HotelRoom hotelRoom, User user, String reservationDate) throws Exception {
+    public Reservation(HotelRoom hotelRoom, User user, String reservationDate) {
         this.hotelRoom = hotelRoom;
         this.user = user;
         this.reservationDate = reservationDate;

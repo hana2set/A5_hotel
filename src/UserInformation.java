@@ -15,7 +15,7 @@ public class UserInformation {
 
             System.out.println("=============환영합니다=============");
             System.out.println("저희 A5 호텔에 방문해 주셔서 감사합니다.");
-            System.out.println("1. 고객 메뉴 2. 관리자  3. 종료");
+            System.out.println("1.고객 메뉴     2.관리자      3.종료");
             System.out.println("==================================");
 
             int menuChoice = sc.nextInt();
@@ -40,11 +40,10 @@ public class UserInformation {
                     System.out.println("다시 입력해 주세요\n");
                     break;
             }
-
         }
-
     }
 
+    // 고개 메뉴
     public static void clientMenu() throws Exception {
         Scanner sc = new Scanner(System.in);
         boolean start = true;
@@ -95,11 +94,11 @@ public class UserInformation {
                     break;
 
                 case 2: // 예약 조회
-                    // TODO hotel.getReservationByUser();
+                    hotel.getReservationByUser();
 
                     break;
                 case 3: // 예약 취소
-                    // TODO hotel.cancelReservationByUser();
+                    hotel.cancelReservationByUser();
 
                     break;
                 case 4:
@@ -110,6 +109,7 @@ public class UserInformation {
         }
     }
 
+    // 관리자 메뉴
     public static void adiminMenu() {
         Scanner sc = new Scanner(System.in);
         boolean start = true;
@@ -122,7 +122,6 @@ public class UserInformation {
             System.out.println("3. 이전화면");
             System.out.println("==================================");
             int selectNumber = sc.nextInt();
-
 
             switch (selectNumber) {
                 case 1: // 예약 조회
@@ -163,7 +162,6 @@ public class UserInformation {
         return new User(name, phone, money);
     }
 
-    //TODO 형식을 print로 보여주던지, 폰번호를 파싱하던지 해야함 ( 01012342345 -> 에러 )
     public static String phoneNumber(){
         Scanner sc = new Scanner(System.in);
         String rule = "^\\d{3}-\\d{3,4}-\\d{4}$";

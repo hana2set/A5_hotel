@@ -25,22 +25,11 @@ public class Hotel {
     // 예약 가능한 객실 리스트를 반환하는 메서드
     public List<HotelRoom> getAvailableRoom(String Date) {
         List<HotelRoom> availableRoom = new ArrayList<>();
-
-        LocalDate desiredLocalDate = LocalDate.parse(desiredDate);
-
-//         LocalDate desiredDate = LocalDate.parse(Date);
-
-
         for (HotelRoom hotelRoom : rooms) {
             boolean isRoomAvailable = true;
 
             for (Reservation reservation : reservationMap.values()) {
-
-                LocalDate reservationLocalDate = reservation.getDate().toLocalDate();
-                if (reservation.getHotelRoom() == hotelRoom && reservation.getDate().toLocalDate().isEqual(desiredLocalDate)) {
-// =======
-//                 if (reservation.getHotelRoom() == hotelRoom && reservation.getDate().toLocalDate().isEqual(LocalDate.parse(Date))) {
-// >>>>>>> cdeUser
+                if (reservation.getHotelRoom() == hotelRoom && reservation.getReservationDate().equals(Date)) {
                     isRoomAvailable = false;
                     break; // 예약 불가능
                 }
@@ -52,6 +41,18 @@ public class Hotel {
         }
 
         return availableRoom;
+    }
+
+    // 해당 객실의 중복 여부 확인
+    public boolean isReserved(String reservationDate, int roomNumber) {
+        // 중복되어있으면 반환
+        return reservationMap.keySet().stream()
+                .filter(uuid ->
+                        reservationMap.get(uuid).getHotelRoom().getUnit() == roomNumber
+                            && reservationMap.get(uuid).getReservationDate().equals(reservationDate)
+                )
+                .findFirst()
+                .isPresent();
     }
 
 
@@ -115,17 +116,10 @@ public class Hotel {
 
         UUID id = UUID.randomUUID();
         reservationMap.put(id, new Reservation(room, user, reservationDate));
-// <<<<<<< JOO
-// //        if (uuidMap.get(user) == null) {
-// //            uuidMap.put(user, new ArrayList<>());
-// //        }
-// //        uuidMap.get(user).add(id);
-// =======
 
         // 자산 추가
         user.setMoney(user.getMoney() - room.getPrice());
         hotelAsset += room.getPrice();
-// >>>>>>> cdeUser
 
         return id;
     }
@@ -146,7 +140,6 @@ public class Hotel {
 
                 reservationMap.remove(uuid);
 
-
                 //자산 반환
                 hotelAsset -= reservationMap.get(uuid).getHotelRoom().getPrice();
                 reservationMap.remove(uuid);
@@ -161,14 +154,5 @@ public class Hotel {
     public void printHotelMoney() {
         System.out.println("호텔 자산 : " + getHotelAsset());
     }
-
-    // 호텔 자산의 증가 & 감소
-    public void addHotelMoney(int hotelMoney){
-        this.hotelAsset += hotelAsset;
-    }
-    public void loseHotelMoney(int hotelMoney) {
-        this.hotelAsset -= hotelAsset;
-    }
-
 
 }

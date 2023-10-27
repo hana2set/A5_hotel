@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Hotel {
     private List<HotelRoom> rooms;      // 객실 리스트
-    private int hotelAsset;             // 호텔 보유 자산(?) 이게 필요한가?
+    private int hotelAsset;             // 호텔 보유 자산
     private Map<UUID, Reservation> reservationMap = new HashMap<>();    // UUID - 예약
 
     private Map<User, List<UUID>> uuidMap = new HashMap<>();            // 고객별 uuids 리스트master
@@ -25,13 +25,22 @@ public class Hotel {
     // 예약 가능한 객실 리스트를 반환하는 메서드
     public List<HotelRoom> getAvailableRoom(String Date) {
         List<HotelRoom> availableRoom = new ArrayList<>();
-        LocalDate desiredDate = LocalDate.parse(Date);
+
+        LocalDate desiredLocalDate = LocalDate.parse(desiredDate);
+
+//         LocalDate desiredDate = LocalDate.parse(Date);
+
 
         for (HotelRoom hotelRoom : rooms) {
             boolean isRoomAvailable = true;
 
             for (Reservation reservation : reservationMap.values()) {
-                if (reservation.getHotelRoom() == hotelRoom && reservation.getDate().toLocalDate().isEqual(LocalDate.parse(Date))) {
+
+                LocalDate reservationLocalDate = reservation.getDate().toLocalDate();
+                if (reservation.getHotelRoom() == hotelRoom && reservation.getDate().toLocalDate().isEqual(desiredLocalDate)) {
+// =======
+//                 if (reservation.getHotelRoom() == hotelRoom && reservation.getDate().toLocalDate().isEqual(LocalDate.parse(Date))) {
+// >>>>>>> cdeUser
                     isRoomAvailable = false;
                     break; // 예약 불가능
                 }
@@ -94,7 +103,7 @@ public class Hotel {
     // 전체 예약 조회 (관리자)
     public void getReservationList() {
         List<UUID> keyset = new ArrayList<>(reservationMap.keySet());
-        for(UUID uuid: keyset){
+        for (UUID uuid : keyset) {
             getReservationList(uuid);
             System.out.println("===========================================");
             System.out.println();
@@ -106,13 +115,21 @@ public class Hotel {
 
         UUID id = UUID.randomUUID();
         reservationMap.put(id, new Reservation(room, user, reservationDate));
+// <<<<<<< JOO
+// //        if (uuidMap.get(user) == null) {
+// //            uuidMap.put(user, new ArrayList<>());
+// //        }
+// //        uuidMap.get(user).add(id);
+// =======
 
         // 자산 추가
         user.setMoney(user.getMoney() - room.getPrice());
         hotelAsset += room.getPrice();
+// >>>>>>> cdeUser
 
         return id;
     }
+
 
     public void cancelReservationByUser() {
         System.out.println("예약번호를 입력하세요: ");
@@ -126,6 +143,10 @@ public class Hotel {
             if (reservation == null) {
                 System.out.println("잘못된 예약 번호입니다. :" + data);
             } else {
+
+                reservationMap.remove(uuid);
+
+
                 //자산 반환
                 hotelAsset -= reservationMap.get(uuid).getHotelRoom().getPrice();
                 reservationMap.remove(uuid);
@@ -137,7 +158,17 @@ public class Hotel {
 
     }
 
-    public void printHotelMoney(){
+    public void printHotelMoney() {
         System.out.println("호텔 자산 : " + getHotelAsset());
     }
+
+    // 호텔 자산의 증가 & 감소
+    public void addHotelMoney(int hotelMoney){
+        this.hotelAsset += hotelAsset;
+    }
+    public void loseHotelMoney(int hotelMoney) {
+        this.hotelAsset -= hotelAsset;
+    }
+
+
 }
